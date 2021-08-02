@@ -46,7 +46,7 @@ program game_of_ur
   roll = Dice_Roll()+Dice_Roll()+Dice_Roll()+Dice_Roll()
   move_mask(:) = 0
   move_mask = Find_Valid_Moves(counters, board, pos_map, turn, roll)
-  call Print_Board(board, off_board, counters, move_mask, roll, turn)
+  call Print_Board(board, off_board, counters, roll, turn)
 
 contains
 
@@ -295,12 +295,12 @@ contains
 
   end subroutine Init_Pos_Map
   
-  subroutine Print_Board(board, off_board, counters, move_mask, roll, turn)
+  subroutine Print_Board(board, off_board, counters, roll, turn)
     implicit none
     type(square), dimension(0:7,0:2), intent(in)  :: board
     type(square), dimension(0:15,0:1), intent(in) :: off_board
     type(piece), dimension(0:13), intent(in)      :: counters
-    integer, dimension(0:6), intent(in)           :: move_mask
+   ! integer, dimension(0:6), intent(in)           :: move_mask
     integer, intent(in)                           :: roll
     integer, intent(in)                           :: turn
     integer                                       :: i, j, index
@@ -317,17 +317,15 @@ contains
        index = off_board(i,1)%counter
        if (index.eq.-1) then
           write(*, '(A2)', advance = 'No') off_board(i, 0)%text
-       elseif (turn.eq.1) then
-          write(*, '(A2)', advance = 'No') counters(index)%text(0+move_mask(index-7))
+       ! elseif (turn.eq.1) then
+       !    write(*, '(A2)', advance = 'No') counters(index)%text(0+move_mask(index-7))
        else
           write(*, '(A2)', advance = 'No') counters(index)%text(0)
        end if
-       print *, index
        write(*, '(A2)', advance = 'No') " "
     end do
    
     write(*,*)
-    print *, move_mask(:)
     write(*,*)
    
     do i = 0,2
@@ -350,7 +348,6 @@ contains
        else
           write(*, '(A2)', advance = 'No') counters(index)%text(0)
        end if
-       print *, index
        write(*, '(A2)', advance = 'No') " "
     end do
     write(*,*)
