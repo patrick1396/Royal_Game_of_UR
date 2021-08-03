@@ -64,10 +64,11 @@ contains
     integer                                          :: ind_1, ind_2
 
 
+    print *, turn
     do i = 0+7*turn, 6+7*turn
        check_pos = counters(i)%position + roll
        if (check_pos.gt.15) then
-          move_mask(i) = 0
+          move_mask(i-7*turn) = 0
           cycle
        end if
        
@@ -75,16 +76,16 @@ contains
        ind_2 = pos_map(1, check_pos, turn)
 
        target_counter = board(ind_1, ind_2)%counter 
-       
-       if ((ind_1.eq.3).and.(ind_2.eq.1).and.(target_counter.ne.-1)) then
-          move_mask(i) = 0
 
-       elseif (target_counter .eq. -1) then
-          move_mask(i) = 1
+       if (target_counter .eq. -1) then
+          move_mask(i-7*turn) = 1
+       elseif ((ind_1.eq.3).and.(ind_2.eq.1).and.(target_counter.ne.-1)) then
+          move_mask(i-7*turn) = 0
+
        elseif (modulo(target_counter, 7).eq.turn) then
-          move_mask(i) = 0
+          move_mask(i-7*turn) = 0
        else
-          move_mask(i) = 1
+          move_mask(i-7*turn) = 1
        end if
        
     end do
@@ -317,8 +318,8 @@ contains
        index = off_board(i,1)%counter
        if (index.eq.-1) then
           write(*, '(A2)', advance = 'No') off_board(i, 0)%text
-       ! elseif (turn.eq.1) then
-       !    write(*, '(A2)', advance = 'No') counters(index)%text(0+move_mask(index-7))
+        elseif (turn.eq.1) then
+           write(*, '(A2)', advance = 'No') counters(index)%text(0+move_mask(index-7))
        else
           write(*, '(A2)', advance = 'No') counters(index)%text(0)
        end if
@@ -343,8 +344,8 @@ contains
 
        if (index.eq.-1) then
           write(*, '(A2)', advance = 'No') off_board(i, 0)%text
-       !elseif (turn.eq.0) then
-       !   write(*, '(A2)', advance = 'No') counters(index)%text(0+move_mask(index))
+       elseif (turn.eq.0) then
+          write(*, '(A2)', advance = 'No') counters(index)%text(0+move_mask(index))
        else
           write(*, '(A2)', advance = 'No') counters(index)%text(0)
        end if
