@@ -55,19 +55,15 @@ def Init_Counters(counters):
         upp_colour = "B"
 
 
-def Print_Board(board, off_board, counters, roll, turn):
+def Print_Board(board, off_board, counters, roll, player):
 
     print("")
-    if (turn==0):
-        print("White rolled: "+str(roll))
-    else:
-        print("Black rolled: "+str(roll))
         
     for i in range(16):
         index = off_board[i,1].counter
         if (index==-1):
             print(off_board[i,1].text+" ", end='')
-        elif (turn==1):
+        elif (player==1):
             mask = move_mask[index-7]
             print(counters[index].text[0+2*mask:2+2*mask]+" ", end='')
         else:
@@ -77,7 +73,15 @@ def Print_Board(board, off_board, counters, roll, turn):
     print("")
     for i in range(3):
         for j in range(8):
-            print(board[j,i].text+" ", end='')
+            index = board[j,i].counter
+            if (index==-1):
+                print(board[j,i].text+" ", end='')
+            elif (math.floor(index/7.0)==player):
+                mask = move_mask[index-7*player]
+                print(counters[index].text[0+2*mask:2+2*mask]+" ", end='')
+            else:
+                print(counters[index].text[0:2]+" ", end='')
+                
         print("")
     
     print("")
@@ -87,13 +91,18 @@ def Print_Board(board, off_board, counters, roll, turn):
         index = off_board[i,0].counter
         if (index==-1):
             print(off_board[i,0].text+" ", end='')
-        elif (turn==0):
+        elif (player==0):
             mask = move_mask[index]
             print(counters[index].text[0+2*mask:2+2*mask]+" ", end='')
         else:
             print(counters[index].text[0:2]+" ", end='')
 
     print("")
+    print("")
+    if (player==0):
+        print("White rolled: "+str(roll))
+    else:
+        print("Black rolled: "+str(roll))
 
 
 
@@ -219,41 +228,95 @@ def Who_Goes_First():
                           
     return player
 
-def Counter_Positions(board, off_board, counters, pos_map):
+def Init_Counter_Positions(board, off_board, counters, pos_map):
     for i in range(14):
-        if (counters[i].position==0):
-            off_board[(i%7)+1, math.floor(i/7.0)].counter = i
-        elif (counters[i].position==15):
-            off_board[(i%7)+9, math.floor(i/7.0)].counter = i
-
+        off_board[(i%7)+1, math.floor(i/7.0)].counter = i
+        
             
-def Find_Valid_Moves(counters, board, pos_map, turn, roll):
+            
+def Find_Valid_Moves(counters, board, pos_map, player, roll):
 
     move_mask = np.zeros((7), dtype=int)
-    for i in range(0+7*turn, 7+7*turn):
+    if (roll==0):
+        return move_mask
+    
+    for i in range(0+7*player, 7+7*player):
         check_pos = counters[i].position + roll
         if (check_pos>15):
-            move_mask[i-7*turn] = 0
+            move_mask[i-7*player] = 0
             continue
 
-        ind_1 = pos_map[0, check_pos, turn]
-        ind_2 = pos_map[1, check_pos, turn]
+        ind_1 = pos_map[0, check_pos, player]
+        ind_2 = pos_map[1, check_pos, player]
 
         target_counter = board[ind_1, ind_2].counter
 
         if (target_counter==-1):
-            move_mask[i-7*turn] = 1
+            move_mask[i-7*player] = 1
         elif ((ind_1==3)and(ind_2==1)and(target_counter!=-1)):
-            move_mask[i-7*turn] = 0
+            move_mask[i-7*player] = 0
 
-        elif (target_counter%7==turn):
-            move_mask[i-7*turn] = 0
+        elif (math.floor(target_counter/7.0)==player):
+            move_mask[i-7*player] = 0
         else:
-            move_mask[i-7*turn] = 1
+            move_mask[i-7*player] = 1
 
     return move_mask
 
 
+
+def Move(counters, roll, player, move_mask, pos_map, turn, score):
+
+    if (np.all(move_mask[:] == 0)):
+        print("No valid moves", end='')
+        input()
+        return turn+1, score
+    
+    valid_move = False
+
+    while (valid_move==False):
+        if (player == 0):
+            print("White moves piece ", end='')
+        else:
+            print("Black moves piece ", end='')
+                
+        index = int(input())-1
+        count_ind = index+7*player
+        print("")
+
+        if (move_mask[index]==0):
+            print("Invalid Move! Try again")
+            valid_move = False
+        else:
+            valid_move = True
+
+    if (counters[count_ind].position==0):
+        off_board[index+1, player].counter = -1
+    else:
+        ind_1 = pos_map[0, counters[count_ind].position, player]
+        ind_2 = pos_map[1, counters[count_ind].position, player]
+
+        board[ind_1, ind_2].counter = -1
+        
+
+    counters[count_ind].position += roll
+
+    if (counters[index+7*player].position==15):
+        off_board[index+9, player].counter = count_ind
+        score[player] +=1
+    else:
+        ind_1 = pos_map[0, counters[count_ind].position, player]
+        ind_2 = pos_map[1, counters[count_ind].position, player]
+
+        board[ind_1, ind_2].counter = count_ind
+
+        if (board[ind_1, ind_2].text == "++"):
+            return turn, score
+        
+    return turn+1, score
+        
+
+            
 # def Test():
 #     rolls = np.zeros(5)
 #     n = 1000000
@@ -288,25 +351,34 @@ for i in range(14):
     counters[i] = piece()
 Init_Counters(counters)
 
+Init_Counter_Positions(board, off_board, counters, pos_map)
+
 
 random.seed()
 
-round = -1
-os.system('cls||clear')
+turn = -1
+    
+score = np.zeros((2), dtype = int)
 
+    
+while ((score[0]<7) and (score[1]<7)):
+    os.system('cls||clear')
+    if (turn<1):
+        turn = Who_Goes_First()
+        
+    player = turn%2
+    
+    roll = Dice_Roll()+Dice_Roll()+Dice_Roll()+Dice_Roll()
+    move_mask = np.zeros((7), dtype = int)
+    move_mask = Find_Valid_Moves(counters, board, pos_map, player, roll)
+    
+    
+    Print_Board(board, off_board, counters, roll, player)
+    print(str(score[0])+" ", str(score[1])+" ")
 
-if (round<1):
-    round = Who_Goes_First()
+    turn, score = Move(counters, roll, player, move_mask, pos_map, turn, score)
 
-turn = round%2
-
-Counter_Positions(board, off_board, counters, pos_map)
-
-roll = Dice_Roll()+Dice_Roll()+Dice_Roll()+Dice_Roll()
-move_mask = np.zeros((7), dtype = int)
-move_mask = Find_Valid_Moves(counters, board, pos_map, turn, roll)
-
-
-Print_Board(board, off_board, counters, roll, turn)
-
-
+if (score[0]==7):
+    print("White wins")
+elif (score[1]==7):
+    print("White wins")
