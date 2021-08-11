@@ -4,9 +4,9 @@ The Royal Game of Ur was a game played throughout Mesopotamia during the early t
 
 The board is made of 20 squares given in the following arrangement, where oo is a normal square and ++ is a rosette
 
-++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo\
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo\
 oo oo oo ++ oo oo oo oo\
-++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo
 
 
 Each player has 7 pieces that start off the board. The game is a race and players take it in turns to roll a set of dice and move their pieces onto and then off of the board. The first player to get all their pieces off the board is the winner.
@@ -18,8 +18,8 @@ Pieces are moved along in the direction of the arrows where S and F show the sta
 | <---------- S&nbsp;&nbsp;&nbsp;F <------\
 v ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo ^\
 ------------------------> |\
-  oo oo oo ++ oo oo oo oo \
-------------------------> |\  
+&nbsp;&nbsp;oo oo oo ++ oo oo oo oo \
+------------------------> |  
 ^ ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo v\
 | <---------- S&nbsp;&nbsp;&nbsp;F <------\
 
