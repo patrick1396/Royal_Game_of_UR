@@ -4,7 +4,7 @@ The Royal Game of Ur was a game played throughout Mesopotamia during the early t
 
 The board is made of 20 squares given in the following arrangement, where oo is a normal square and ++ is a rosette
 
-++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo\
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo\
 oo oo oo ++ oo oo oo oo\
 ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo
 
