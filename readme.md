@@ -15,13 +15,13 @@ The dice are four sided and can give either a 1 or a 0 with equal probability, t
 
 Pieces are moved along in the direction of the arrows where S and F show the start and finish
 
-| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------\
+| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------\
 v ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo ^\
 ---------------------------------> |\
 &nbsp;&nbsp;oo oo oo ++ oo oo oo oo \
 ---------------------------------> |  
 ^ ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo v\
-| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;F <------\
+| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------\
 
 For both sides, the first 4 and final 2 squares are seperate, these are safe squares where your piece can't be taken.
 The central 8 squares are shared, pieces of the opposing player can be captured here and sent back to the start by landing on them.
