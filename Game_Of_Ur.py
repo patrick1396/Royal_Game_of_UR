@@ -299,101 +299,152 @@ def Who_Goes_First():
     return player
 
 #Subroutine to initialise the counter positions in the off_board arrays
-def Init_Counter_Positions(board, off_board, counters, pos_map):
+def Init_Counter_Positions(off_board, counters):
     #Loop over the counters
     for i in range(14):
         #initialise the start row of the off_board array with the counters
         off_board[(i%7)+1, math.floor(i/7.0)].counter = i
         
             
-            
+#Function for finding valid moves for the current player
+#Takes as input the array of counters, the board, the position map array, the current player and the current dice roll
+#Gives as output an array populated with 1s and 0s that tell a piece whether it can move or not
 def Find_Valid_Moves(counters, board, pos_map, player, roll):
 
+    #Initially set the move mask to be populated by all 0s, indicating that no piece can be moved
     move_mask = np.zeros((7), dtype=int)
+
+    #If the player rolled a 0 then they can't move so the mask array is returned with all 0s
     if (roll==0):
         return move_mask
-    
+
+    #Loop over the indices of pieces of the current player, if player = 0 then 0 to 6, if player = 1 then 7 to 13
     for i in range(0+7*player, 7+7*player):
+        #Find the position of the current piece after the roll
         check_pos = counters[i].position + roll
+
+        #If the check position goes beyond the length of the board array then move mask for that piece is 0
         if (check_pos>15):
             move_mask[i-7*player] = 0
+            #Go round to the next piece
             continue
 
+        #Find the board indices for the check position
         ind_1 = pos_map[0, check_pos, player]
         ind_2 = pos_map[1, check_pos, player]
 
+        #Find the index of the counter at the target position
         target_counter = board[ind_1, ind_2].counter
 
+        #If the target counter is -1 then the target square is empty
         if (target_counter==-1):
+            #Move mask is 1
             move_mask[i-7*player] = 1
+
+        #If the target is (3,2) and the target counter is not -1 then the middle rosette is the target and is populated, pieces cannot be captured on this square
         elif ((ind_1==3)and(ind_2==1)and(target_counter!=-1)):
+            #Move mask is 0
             move_mask[i-7*player] = 0
 
+        #If the target counter is of the same colour then it cannot be captured
         elif (math.floor(target_counter/7.0)==player):
+            #Move mask is 0
             move_mask[i-7*player] = 0
+
+        #Otherwise the piece can be moved to the square
         else:
             move_mask[i-7*player] = 1
 
+    #Return the move mask
     return move_mask
 
 
+#Function to deal with the movement of pieces and returns the next turn and the score
+#Takes as input the counters, the dice roll, the current player, the move mask, the position map, the board, the current turn and the score
+def Move(counters, roll, player, move_mask, pos_map, board, turn, score):
 
-def Move(counters, roll, player, move_mask, pos_map, turn, score):
-
+    #If all values in the move mask are 0 then there are no valid moves
+    #Print this to the screen and wait for the user to press return
     if (np.all(move_mask[:] == 0)):
         print("No valid moves", end='')
         input()
-        return turn+1, score
-    
-    valid_move = False
 
+        #Returns the turn+1 and the score array
+        return turn+1, score
+
+    #Set valid move to False
+    valid_move = False
+    #Repeat until a valid move is made
     while (valid_move==False):
+
+        #Ask the player which piece they want to move
         if (player == 0):
             print("White moves piece ", end='')
         else:
             print("Black moves piece ", end='')
-                
+
+        #The piece index is the input value -1 (zero indexing arrays)
         index = int(input())-1
+
+        #Counter index is the index + 7 times the current player
         count_ind = index+7*player
         print("")
 
+        #If the move mask for the current index is 0 then the move isn't valid
         if (move_mask[index]==0):
             print("Invalid Move! Try again")
             valid_move = False
         else:
             valid_move = True
 
+    #If the piece's current position is 0 then it is off board
     if (counters[count_ind].position==0):
+        #Set its off board position counter index to -1 to indicate the square is now empty
         off_board[index+1, player].counter = -1
     else:
+        #Otherwise find the current position on the board
         ind_1 = pos_map[0, counters[count_ind].position, player]
         ind_2 = pos_map[1, counters[count_ind].position, player]
 
+        #Set the board positions ounter index to -1 to indicate the square is now empty
         board[ind_1, ind_2].counter = -1
         
 
+    #Update the counter's position to be the current position plus the dice roll
     counters[count_ind].position += roll
 
+    #If the final position is 15 then the piece has made it off the board, set the corresponding finished section of the off_board array to the counter index
     if (counters[index+7*player].position==15):
         off_board[index+9, player].counter = count_ind
+
+        #Increase the player score by 1
         score[player] +=1
     else:
+        #Otherwise find the current position on the board
         ind_1 = pos_map[0, counters[count_ind].position, player]
         ind_2 = pos_map[1, counters[count_ind].position, player]
 
+        #If the board position the peice is moving to is already occupied then call the capture piece subroutine
         if (board[ind_1, ind_2].counter!=-1):
             capture(counters, board[ind_1, ind_2].counter, off_board)
-        
+
+        #Set the board position counter index to the counter index
         board[ind_1, ind_2].counter = count_ind
 
+        #If the base text of the current board square is ++ then it is a rosette so the player gets another roll
         if (board[ind_1, ind_2].text == "++"):
+            #Don't increment the turn and return the score
             return turn, score
-        
+
+    #Return the turn+1, to move to the next turn; and the score
     return turn+1, score
 
-
+#Subroutine to deal with the capture of a piece
+#Takes as input the counters array, the index of the piece being captured adn the off board array
 def capture(counters, counter_ind, off_board):
+    #Set the captured counter's position to 0
     counters[counter_ind].position = 0
+    #Set the corresponding off board start position to the captured piece
     off_board[(counter_ind%7)+1, math.floor(counter_ind/7.0)].counter = counter_ind
 
             
@@ -409,54 +460,75 @@ def capture(counters, counter_ind, off_board):
 #         print(rolls[i]/n)
 
 
-    
+#Declare an array for the board made of square objects
 board = np.empty((8,3), dtype = object)
 for i in range(3):
     for j in range(8):
         board[j,i] = square()
 
+#Decalre an array for the off board made of square objects
 off_board = np.empty((16,2), dtype = object)
 for i in range(2):
     for j in range(16):
-        off_board[j,i] = square()        
-Init_Board(board, off_board)
+        off_board[j,i] = square()
         
+#Initialise the board and off_board arrays
+Init_Board(board, off_board)
 
+
+#Declare an array for the position map
 pos_map = np.empty((2,16,3), dtype = int)
+#Initialise the position map
 Init_Pos_Map(pos_map)
 
 
+#Declare an array for the counters made of piece objects
 counters = np.empty((14), dtype = object)
 for i in range(14):
     counters[i] = piece()
+
+#Initialise the counters array
 Init_Counters(counters)
 
+#Initialise the counter positions on the off board
 Init_Counter_Positions(board, off_board, counters, pos_map)
 
-
+#Set random seed
 random.seed()
 
+#Set initial turn to be -1
 turn = -1
-    
+
+#Declare an array to for the scores
 score = np.zeros((2), dtype = int)
 
-    
+#Loop while the scores are less than 7
 while ((score[0]<7) and (score[1]<7)):
+    #Clear the screen
     os.system('cls||clear')
+    #On the first loop, decide who goes first
     if (turn<1):
         turn = Who_Goes_First()
-        
+
+    #Current player is the turn modulo two
     player = turn%2
-    
+
+    #Roll the four dice
     roll = Dice_Roll()+Dice_Roll()+Dice_Roll()+Dice_Roll()
+    
+    #Set the move_mask array to 0
     move_mask = np.zeros((7), dtype = int)
+
+    #Find the move mask for the current piece
     move_mask = Find_Valid_Moves(counters, board, pos_map, player, roll)
-    
-    
+
+    #Print the current board
     Print_Board(board, off_board, counters, roll, player, move_mask)
 
-    turn, score = Move(counters, roll, player, move_mask, pos_map, turn, score)
+    #Current player moves his piece
+    turn, score = Move(counters, roll, player, move_mask, pos_map, board, turn, score)
 
+#On exit, print who the winner is
 if (score[0]==7):
     print("White wins")
 elif (score[1]==7):
