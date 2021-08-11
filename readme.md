@@ -46,13 +46,13 @@ White moves piece
 
 It is white's turn, the upper case letters indicate which of their pieces are available for movement. A piece is moved by typing its number and pressing enter. Entering 1 here would then give
 
-S: B1 B2 B3 B4 B5 B6 B7 F: __ __ __ __ __ __ __ \
+S: B1 B2 B3 B4 B5 B6 B7 F: __ __ __ __ __ __ __ 
 
 ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo \
 oo oo oo ++ oo oo oo oo \
 ++ w1 oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo 
 
-S: __ w2 w3 w4 w5 w6 w7 F: __ __ __ __ __ __ __ \
+S: __ w2 w3 w4 w5 w6 w7 F: __ __ __ __ __ __ __ 
 
 Black rolled: 3\
 Black moves piece
