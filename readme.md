@@ -4,9 +4,9 @@ The Royal Game of Ur was a game played throughout Mesopotamia during the early t
 
 The board is made of 20 squares given in the following arrangement, where oo is a normal square and ++ is a rosette
 
-++ oo oo oo       ++ oo 
-oo oo oo ++ oo oo oo oo 
-++ oo oo oo       ++ oo
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo\
+oo oo oo ++ oo oo oo oo\
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo
 
 
 Each player has 7 pieces that start off the board. The game is a race and players take it in turns to roll a set of dice and move their pieces onto and then off of the board. The first player to get all their pieces off the board is the winner.
@@ -15,13 +15,13 @@ The dice are four sided and can give either a 1 or a 0 with equal probability, t
 
 Pieces are moved along in the direction of the arrows where S and F show the start and finish
 
-| <---------- S   F <------
-v ++ oo oo oo       ++ oo ^
-------------------------> |
-  oo oo oo ++ oo oo oo oo 
-------------------------> |  
-^ ++ oo oo oo       ++ oo v
-| <---------- S   F <------
+| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------\
+v ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo ^\
+---------------------------------> |\
+&nbsp;&nbsp;oo oo oo ++ oo oo oo oo \
+---------------------------------> |  
+^ ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo v\
+| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------
 
 For both sides, the first 4 and final 2 squares are seperate, these are safe squares where your piece can't be taken.
 The central 8 squares are shared, pieces of the opposing player can be captured here and sent back to the start by landing on them.
@@ -35,26 +35,26 @@ During play the board will look something like this
 
 S: b1 b2 b3 b4 b5 b6 b7 F: __ __ __ __ __ __ __ 
 
-++ oo oo oo       ++ oo 
-oo oo oo ++ oo oo oo oo 
-++ oo oo oo       ++ oo 
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo \
+oo oo oo ++ oo oo oo oo \
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo 
 
 S: W1 W2 W3 W4 W5 W6 W7 F: __ __ __ __ __ __ __ 
 
-White rolled: 3
+White rolled: 3\
 White moves piece
 
 It is white's turn, the upper case letters indicate which of their pieces are available for movement. A piece is moved by typing its number and pressing enter. Entering 1 here would then give
 
 S: B1 B2 B3 B4 B5 B6 B7 F: __ __ __ __ __ __ __ 
 
-++ oo oo oo       ++ oo 
-oo oo oo ++ oo oo oo oo 
-++ w1 oo oo       ++ oo 
+++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo \
+oo oo oo ++ oo oo oo oo \
+++ w1 oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo 
 
 S: __ w2 w3 w4 w5 w6 w7 F: __ __ __ __ __ __ __ 
 
-Black rolled: 3
+Black rolled: 3\
 Black moves piece
 
 

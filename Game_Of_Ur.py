@@ -491,7 +491,7 @@ for i in range(14):
 Init_Counters(counters)
 
 #Initialise the counter positions on the off board
-Init_Counter_Positions(board, off_board, counters, pos_map)
+Init_Counter_Positions(off_board, counters)
 
 #Set random seed
 random.seed()
