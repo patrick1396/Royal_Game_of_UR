@@ -17,7 +17,7 @@ Pieces are moved along in the direction of the arrows where S and F show the sta
 
 | <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;F <------\
 v ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo ^\
-------------------------------------------------------> |\
+-----------------------------------> |\
 &nbsp;&nbsp;oo oo oo ++ oo oo oo oo \
 ------------------------> |  
 ^ ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo v\
