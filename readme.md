@@ -15,7 +15,7 @@ The dice are four sided and can give either a 1 or a 0 with equal probability, t
 
 Pieces are moved along in the direction of the arrows where S and F show the start and finish
 
-| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;F <------\
+| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------\
 v ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo ^\
 ---------------------------------> |\
 &nbsp;&nbsp;oo oo oo ++ oo oo oo oo \
