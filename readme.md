@@ -21,7 +21,7 @@ v ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo ^
 &nbsp;&nbsp;oo oo oo ++ oo oo oo oo \
 ---------------------------------> |  
 ^ ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo v\
-| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------\
+| <--------------- S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F <------
 
 For both sides, the first 4 and final 2 squares are seperate, these are safe squares where your piece can't be taken.
 The central 8 squares are shared, pieces of the opposing player can be captured here and sent back to the start by landing on them.
@@ -33,7 +33,7 @@ At the start, players roll dice to decide who goes first, this is done automatic
 During play the board will look something like this
 
 
-S: b1 b2 b3 b4 b5 b6 b7 F: __ __ __ __ __ __ __ \
+S: b1 b2 b3 b4 b5 b6 b7 F: __ __ __ __ __ __ __ 
 
 ++ oo oo oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ oo \
 oo oo oo ++ oo oo oo oo \
