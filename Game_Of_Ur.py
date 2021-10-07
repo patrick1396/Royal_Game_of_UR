@@ -466,7 +466,7 @@ for i in range(3):
     for j in range(8):
         board[j,i] = square()
 
-#Decalre an array for the off board made of square objects
+#Declare an array for the off board made of square objects
 off_board = np.empty((16,2), dtype = object)
 for i in range(2):
     for j in range(16):
@@ -525,7 +525,7 @@ while ((score[0]<7) and (score[1]<7)):
     #Print the current board
     Print_Board(board, off_board, counters, roll, player, move_mask)
 
-    #Current player moves his piece
+    #Current player moves their piece
     turn, score = Move(counters, roll, player, move_mask, pos_map, board, turn, score)
 
 #On exit, print who the winner is
